@@ -86,4 +86,8 @@ This is the place for you to write reflections:
 
 #### Reflection Subscriber-1
 
+1. The use or RwLock instead of Mutex because RwLock's read() can be held by multiple threads simultaneously. Since, in the program, reading happens more than writes, RwLock is used to prevent threads blocking each other when reading and causing unnecessarily long response times.
+
+2. Rust doesn't allow content mutation of a static variable via a static function because of its ownership and safety guarantees. While Java's static variables live on the heap, Rust's static variables live for the entire program lifetime and can be accessed from any thread at any time. Rust's compiler must prove safety at compile time and allowing arbitrary mutation of a static variable makes it impossible to do so. lazy_static solves that problem by deferring initialization to the first access at runtime so that complex types (Vec, DashMap, etc) can be initialized properly and then RwLock and DashMap's internal locking handles safe mutation.
+
 #### Reflection Subscriber-2
