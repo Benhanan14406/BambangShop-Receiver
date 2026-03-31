@@ -91,3 +91,9 @@ This is the place for you to write reflections:
 2. Rust doesn't allow content mutation of a static variable via a static function because of its ownership and safety guarantees. While Java's static variables live on the heap, Rust's static variables live for the entire program lifetime and can be accessed from any thread at any time. Rust's compiler must prove safety at compile time and allowing arbitrary mutation of a static variable makes it impossible to do so. lazy_static solves that problem by deferring initialization to the first access at runtime so that complex types (Vec, DashMap, etc) can be initialized properly and then RwLock and DashMap's internal locking handles safe mutation.
 
 #### Reflection Subscriber-2
+
+1. I have explored lib.rs briefly. From how it looks, it seems to function similarly to Django's settings.py (acts as a central config and initialization hub).
+
+2. The observer pattern makes adding more subscribers easy because each subscriber just needs to call /subscribe/<product_type> to register itself to the publisher while the publisher doesn't need to do anything. Multiple Main apps wouldn't be connected to each other without a shared external storage because the SUBSCRIBERS map only connects to the Main app it's in.
+
+3. I haven't tried making my own tests due to time constraints. But, adding more tests would be beneficial to test edge cases and/or possible errors. 
